@@ -20,44 +20,12 @@
 
 void *auto_saver(void *arg) //Auto Saver thread function
 {
-    const char *temp = (char *)arg;
-    
-    FILE *fp; //File pointer
-    NODE *p; //temporary node to hold each node from file
-
-    if ((p = (NODE *)malloc(sizeof(NODE))) == NULL)
-    {
-        printf("Malloc error...\n"); //Error given if pointers not allocated successfully
-        exit(1);
-    }
+    char *name = (char *)arg;
 
     while (1)
     {
         sleep(5);
-        
-        fp = fopen(temp, "wb"); //Writing to the file (overwriting)
-
-        if (fp == NULL) //If file does not exist
-        {
-            printf("The file cannot be saved.\n");
-            exit(1); 
-        }
-
-        int letterIndex;
-        for (letterIndex = 0; letterIndex < SIZE; ++letterIndex)
-        {
-            p = lists[letterIndex];
-            
-            while (p != NULL) //While node is not null
-            {
-                pthread_mutex_lock(&mutex);
-                fwrite(p, sizeof(NODE), 1, fp); //Writes one node to the file
-                pthread_mutex_unlock(&mutex);
-                p = p->next; //Contiues to the next node
-            }
-        }
-
-        fclose(fp); //Closes file pointer
+        save_binary(name);
     }
 
     return NULL;
