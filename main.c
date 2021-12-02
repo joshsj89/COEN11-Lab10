@@ -59,10 +59,14 @@ int main(int argc, char *argv[])
         switch (command)
         {
             case 1: //Insert
+                pthread_mutex_lock(&mutex); //make sure multiple threads are not inserting to linked list
                 insert();
+                pthread_mutex_unlock(&mutex);
                 break;
             case 2: //Delete
+                pthread_mutex_lock(&mutex); //make sure multiple threads are not deleting nodes in linked list
                 delete();
+                pthread_mutex_unlock(&mutex);
                 break;
             case 3: //Show all the lists
                 show();

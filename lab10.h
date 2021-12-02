@@ -35,6 +35,7 @@ struct contact //Node of the linked list
 extern NODE *lists[SIZE]; //Array of linked lists
 extern NODE *listsTail[SIZE]; //Array of linked lists' tails
 extern char *fileHeader; //Header of the text file
+extern pthread_mutex_t mutex;
 
 /*
 *****************************************************************
