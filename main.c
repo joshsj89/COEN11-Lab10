@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 
     pthread_t thread;
     
-    pthread_create(&thread, NULL, auto_saver, (void *)NULL);
+    pthread_create(&thread, NULL, auto_saver, (void *)argv[2]);
 
     int command;
     bool run = true;

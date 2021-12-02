@@ -18,8 +18,10 @@
 *****************************************************************
 */
 
-void *auto_saver() //Auto Saver thread function
+void *auto_saver(void *arg) //Auto Saver thread function
 {
+    const char *temp = (char *)arg;
+    
     FILE *fp; //File pointer
     NODE *p; //temporary node to hold each node from file
 
@@ -29,13 +31,11 @@ void *auto_saver() //Auto Saver thread function
         exit(1);
     }
 
-    
-
     while (1)
     {
         sleep(5);
         
-        fp = fopen("temp", "wb"); //Writing to the file (overwriting)
+        fp = fopen(temp, "wb"); //Writing to the file (overwriting)
 
         if (fp == NULL) //If file does not exist
         {
