@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <unistd.h>
 #include "lab10.h"
 
 #define NODE struct contact
@@ -20,6 +21,7 @@
 NODE *lists[SIZE]; //Array of linked lists
 NODE *listsTail[SIZE]; //Array of linked lists' tails
 char *fileHeader = "Names\tNumbers\t\n\n----------------------------------\n\n"; //Header of the text file
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*
 *****************************************************************
@@ -45,6 +47,10 @@ int main(int argc, char *argv[])
     }
     else
         read_file(argv[1]);
+
+    pthread_t thread;
+    
+    pthread_create(&thread, NULL, auto_saver, (void *)NULL);
 
     int command;
     bool run = true;
@@ -95,6 +101,9 @@ int main(int argc, char *argv[])
                 break;
             case 8: //Quit
                 run = false;
+                pthread_mutex_lock(&mutex); //disallows thread from canceling when in the middle of use
+                pthread_cancel(thread);
+                pthread_mutex_unlock(&mutex);
                 break;
             default: //If any number other than 1-8 is inputted
                 printf("Not a valid option. Try again.\n");
