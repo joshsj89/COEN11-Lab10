@@ -56,3 +56,4 @@ void save_file(char *name); //Function declaration of Save File
 void read_binary(char *name); //Function declaration of Read Binary File
 void save_binary(char *name); //Function declaration of Save Binary File
 void reverse(NODE *c, int index); //Fuction declaration of Reverse
+void auto_saver(void *arg); //Function declaration of Auto Saver

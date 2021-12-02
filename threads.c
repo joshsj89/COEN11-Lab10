@@ -16,3 +16,8 @@
 *
 *****************************************************************
 */
+
+void *auto_saver(void *arg) //Auto Saver thread function
+{
+
+}
