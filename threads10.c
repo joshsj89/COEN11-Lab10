@@ -25,7 +25,9 @@ void *auto_saver(void *arg) //Auto Saver thread function
     while (1)
     {
         sleep(5);
+        pthread_mutex_lock(&mutex);
         save_binary(name);
+        pthread_mutex_unlock(&mutex);
     }
 
     return NULL;
